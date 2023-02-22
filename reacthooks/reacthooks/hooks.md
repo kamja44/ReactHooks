@@ -155,3 +155,47 @@ useEffect(sayHello, []);
 useEffect(sayHello, [number]);
 // number이 변할때만 sayHello를 실행시킨다.
 ```
+
+# useTitle
+
+- 문서의 제목을 업데이트 시켜주는hook
+- react-helmet을 사용해도 된다.
+
+```js
+import React, { useState, useEffect } from "react";
+import ReactDOM from "react-dom";
+const useTitle = (initialTitle) => {
+  const [title, setTitle] = useState(initialTitle);
+  const updateTitle = () => {
+    const htmlTitle = document.querySelector("title");
+    htmlTitle.innerText = title;
+  };
+  useEffect(updateTitle, [title]);
+  return setTitle;
+};
+const App = () => {
+  const titleUpdater = useTitle("Loading...");
+  setTimeout(() => titleUpdater("Home"), 5000);
+  return (
+    <div>
+      <div>Hi</div>
+    </div>
+  );
+};
+export default App;
+```
+
+1. useTitle 훅 생성
+
+- 파라미터로 initialTitle을 받고, title을 변경할 수 있는 useState를 사용한다.
+- updateTitle함수를 생성한다.
+  - htmlTitle로 title 태그를 받아오고 innerText를 이용하여 title의 값을 변경한다.
+- useEffect를 사용하여 updateTitle 함수를 mount하고, title을 dependency로 설정하여 title이 변경될때마다 updateTitle 함수가 도작하도록 설정한다.
+- return 값으로 setTitle을 반환한다.
+
+2. App 함수
+
+- titleUpdater 상수에 useTitle 함수를 할당한다.
+  - 초기값으로 Loading...을 전달한다.
+- setTimeout 함수안에 titleUpdater함수를 사용한다.
+  - 5초후 title의 값이 Loading에서 Home으로 변경된다.

@@ -7,6 +7,7 @@ import UseTitle from "./useTitle";
 import UseRef from "./useRef";
 import UseClick from "./useClick";
 import UseHover from "./useHover";
+import UseConfirm from "./useConfirm";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(<UseHover />);
+root.render(<UseConfirm />);

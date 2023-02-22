@@ -278,3 +278,56 @@ function을 return받았다면, componentWillUnMount로 부터 호출된것이�
 # useHover
 
 - useClick훅과 내용 동일
+
+# useConfirm
+
+- 사용자가 무언가를 하기 전에 확인한다.
+  - ex) 사용자가 버튼을 클릭하는 작업을 하면 이벤트를 실행하기 전에 메세지를 보여준다.
+  - 즉, 확인 메시지이다.
+    - 브라우저에 의해서 만들어진다.
+      - 브라우저가 이벤트의 기본동작을 막고, confirm하고, confirm이 끝나면 이벤트를 진행시킨다.
+- window.confirm 메서드는 확인과 취소 두 버튼을 가지며 메시지를 지정할 수 있는 모달 대화 상자를 띄운다.
+
+```js
+import React, { useState, useEffect, useRef } from "react";
+import ReactDOM from "react-dom";
+
+const useConfirm = (message = "", callback, rejection) => {
+  if (typeof callback !== "function") {
+    return;
+  }
+  const confirmAction = () => {
+    if (window.confirm(message)) {
+      callback();
+    } else {
+      rejection();
+    }
+  };
+  return confirmAction;
+};
+
+const App = () => {
+  const deleteWorld = () => console.log("Deleting the world...");
+  const abort = () => console.log("Aborted");
+  const confirmDelete = useConfirm("Are you sure?", deleteWorld, abort);
+  return (
+    <div>
+      <button onClick={confirmDelete}>Delete the world</button>
+    </div>
+  );
+};
+export default App;
+```
+
+1. useConfirm 함수를 만든다.
+
+- 매개변수로 message, callback, rejection을 받는다.
+
+2. confirmAction 함수를 만든다.
+
+- if문의 조건이 참일 때 callback 함수를 호출한다.
+- if문의 조건이 거짓일 때 rejection 함수를 호출한다.
+
+3. confirmAction 함수를 리턴한다.
+4. App 함수에 useConfirm함수를 호출하고, argument로 message, deleteWorld, abort를 전달한다.
+5. onClick event에 confirmDelete를 할당하여 사용한다.

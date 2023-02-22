@@ -331,3 +331,40 @@ export default App;
 3. confirmAction 함수를 리턴한다.
 4. App 함수에 useConfirm함수를 호출하고, argument로 message, deleteWorld, abort를 전달한다.
 5. onClick event에 confirmDelete를 할당하여 사용한다.
+
+# usePreventLeave hook
+
+- beforeunload
+  - 문서와 리소스가 언로드 되기 직전 window에서 발생한다.
+    이벤트 발생 시점엔 문서를 아직 볼 수 있으며 이벤트도 취소가 가능하다.
+    - 즉, window가 닫히기 전 function이 실행되는걸 허용한다.
+  - beforeunload는 returnValue를 요구한다.
+
+```js
+import React, { useState, useEffect, useRef } from "react";
+import ReactDOM from "react-dom";
+
+const usePreventLeave = () => {
+  const listener = (event) => {
+    event.preventDefault();
+    event.returnValue = "";
+  };
+  const enablePrevent = () => {
+    window.addEventListener("beforeunload", listener);
+  };
+  const disablePrevent = () => {
+    window.removeEventListener("beforeunload", listener);
+  };
+  return { enablePrevent, disablePrevent };
+};
+const App = () => {
+  const { enablePrevent, disablePrevent } = usePreventLeave();
+  return (
+    <div>
+      <button onClick={enablePrevent}>enablePrevent</button>
+      <button onClick={disablePrevent}>disablePrevent</button>
+    </div>
+  );
+};
+export default App;
+```

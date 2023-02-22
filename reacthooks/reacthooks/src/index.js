@@ -8,6 +8,7 @@ import UseRef from "./useRef";
 import UseClick from "./useClick";
 import UseHover from "./useHover";
 import UseConfirm from "./useConfirm";
+import UsePreventLeave from "./usePreventLeave";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(<UseConfirm />);
+root.render(<UsePreventLeave />);

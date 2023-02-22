@@ -4,6 +4,7 @@ import UseInput from "./useInputHook";
 import UseTabHooks from "./useTabHooks";
 import UseEffectHooks from "./useEffect";
 import UseTitle from "./useTitle";
+import UseRef from "./useRef";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(<UseTitle />);
+root.render(<UseRef />);

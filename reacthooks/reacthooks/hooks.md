@@ -199,3 +199,32 @@ export default App;
   - 초기값으로 Loading...을 전달한다.
 - setTimeout 함수안에 titleUpdater함수를 사용한다.
   - 5초후 title의 값이 Loading에서 Home으로 변경된다.
+
+# reference
+
+- useRef();
+- component의 어떤 부분을 선택할 수 있는 방법이다.
+- react에 있는 모든 component는 reference element(reference prop)를 갖고 있다.
+  - 즉, input을 참조하고 있는 potato는 const potato이다.
+  - 즉, ref를 이용하여 element에 접근할 수 있다.
+
+```js
+import React, { useState, useEffect, useRef } from "react";
+import ReactDOM from "react-dom";
+
+const App = () => {
+  const potato = useRef();
+  console.log(potato);
+  return (
+    <div>
+      <div>Hi</div>
+      <input ref={potato} placeholder="kamja" />
+    </div>
+  );
+};
+
+export default App;
+```
+
+- console.log의 결과에는 element가 반환된다.
+  - 즉, getElementById()와 결과가 같다.

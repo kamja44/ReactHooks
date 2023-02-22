@@ -6,6 +6,7 @@ import UseEffectHooks from "./useEffect";
 import UseTitle from "./useTitle";
 import UseRef from "./useRef";
 import UseClick from "./useClick";
+import UseHover from "./useHover";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(<UseClick />);
+root.render(<UseHover />);

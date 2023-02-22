@@ -274,3 +274,7 @@ export default App;
 3. useRef를 할당받은 title 상수를 h1의 ref와 연결한다.
 
 function을 return받았다면, componentWillUnMount로 부터 호출된것이다.
+
+# useHover
+
+- useClick훅과 내용 동일

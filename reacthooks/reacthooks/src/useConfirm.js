@@ -1,15 +1,18 @@
 import React, { useState, useEffect, useRef } from "react";
 import ReactDOM from "react-dom";
 
-const useConfirm = (message = "", callback, rejection) => {
-  if (typeof callback !== "function") {
+const useConfirm = (message = "", onConfirm, onCancel) => {
+  if (!onConfirm || typeof onConfirm !== "function") {
+    return;
+  }
+  if (onCancel && typeof onCancel !== "function") {
     return;
   }
   const confirmAction = () => {
     if (window.confirm(message)) {
-      callback();
+      onConfirm();
     } else {
-      rejection();
+      onCancel();
     }
   };
   return confirmAction;

@@ -228,3 +228,49 @@ export default App;
 
 - console.log의 결과에는 element가 반환된다.
   - 즉, getElementById()와 결과가 같다.
+
+# useClick
+
+```js
+import React, { useState, useEffect, useRef } from "react";
+import ReactDOM from "react-dom";
+
+const useClick = (onClick) => {
+  const element = useRef();
+  console.log(element);
+  useEffect(() => {
+    if (typeof onClick !== "function") {
+      return;
+    }
+    // useEffect가 mount 되었을 때 click 이벤트를 추가한다.
+    if (element.current) {
+      element.current.addEventListener("click", onClick);
+    }
+    return () => {
+      if (element.current) {
+        element.current.removeEventListener("click", onClick);
+      }
+    };
+  }, []); // dependency가 없기에 mount시에만 딱 한번 실행된다.
+  return typeof onClick === "function" ? element : undefined;
+};
+const App = () => {
+  const title = useClick();
+  return (
+    <div>
+      <h1 ref={title}>Hi</h1>
+    </div>
+  );
+};
+
+export default App;
+```
+
+1. useClick을 사용하여 useRef() 생성
+
+- useClick에서 useRef를 return한다.
+
+2. return한 useRef를 title 상수에 할당한다.
+3. useRef를 할당받은 title 상수를 h1의 ref와 연결한다.
+
+function을 return받았다면, componentWillUnMount로 부터 호출된것이다.

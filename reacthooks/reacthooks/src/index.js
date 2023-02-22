@@ -5,6 +5,7 @@ import UseTabHooks from "./useTabHooks";
 import UseEffectHooks from "./useEffect";
 import UseTitle from "./useTitle";
 import UseRef from "./useRef";
+import UseClick from "./useClick";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(<UseRef />);
+root.render(<UseClick />);

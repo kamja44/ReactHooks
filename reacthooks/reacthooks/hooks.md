@@ -137,3 +137,21 @@ const App = () => {
   );
 };
 ```
+
+# useEffect
+
+- componentDidMount(), componentDidUpdate(), componentWillUnmount() 의 역할을 한다.
+- useEffect는 2개의 인자를 받는다.
+  - 첫 번째 argument는 function으로써의 effect이다.
+  - 두 번째 argument는 dependency이다.
+    - 두 번째 argument 즉, dependency가 있다면 effect는 deps 리스트에 있는 값일 때만 값이 변하도록 활성화 된다.
+    - component가 mount되었을때만 실행하고 나서 어떤 경우에도 실행시키고 싶지 않다면 두 번째 argument에 빈 배열([])을 전달한다.
+      - 즉, component가 연결되었을 때 딱 한번만 실행된다.
+    - 두 번째 argument에 아무 값도 전달하지 않았다면 component는 unmount이고 모든 변화를 감지한다.
+
+```js
+useEffect(sayHello, []);
+// 배열에 어떤 값이 존재한다면, 그 값은 변하고 useEffect는 활성화된다.
+useEffect(sayHello, [number]);
+// number이 변할때만 sayHello를 실행시킨다.
+```

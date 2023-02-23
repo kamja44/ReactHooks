@@ -368,3 +368,71 @@ const App = () => {
 };
 export default App;
 ```
+
+# usePageLeave hook
+
+- 탭을 닫을 때 실행되는 function
+  - 팝업 기능을 구현할 때 유용
+  - component가 mount 되었을 때 mouseleave 이벤트를 도큐먼트에 추가한다.
+  - componenet가 unmount 되었을 때 mouseleave 이벤트를 제거한다.
+
+```js
+import React, { useEffect } from "react";
+const useBeforeLeave = (onBefore) => {
+  const handle = (event) => {
+    const { clientY } = event;
+    if (clientY <= 0) {
+      onBefore();
+    }
+  };
+  useEffect(() => {
+    if (typeof onBefore !== "function") {
+      return;
+    }
+    document.addEventListener("mouseleave", handle);
+    return () => document.removeEventListener("mouseleave", handle);
+  }, []);
+};
+const App = () => {
+  const begForLife = () => console.log("Pls dont leave");
+  useBeforeLeave(begForLife);
+  return (
+    <div>
+      <h1>Hello</h1>
+    </div>
+  );
+};
+export default App;
+```
+
+# useFadeIn
+
+- hook과 animation 섞어서 사용하기
+
+```js
+import React, { useState, useEffect, useRef } from "react";
+import ReactDOM from "react-dom";
+
+const useFadeIn = (duration = 1, delay = 0) => {
+  const element = useRef();
+  useEffect(() => {
+    if (element.current) {
+      const { current } = element;
+      current.style.transition = `opacity ${duration}s ease-in-out ${delay}s`;
+      current.style.opacity = 1;
+    }
+  }, []);
+  return { ref: element, style: { opacity: 0 } };
+};
+const App = () => {
+  const fadeInHi = useFadeIn(1, 2);
+  const fadeInP = useFadeIn(5, 10);
+  return (
+    <div>
+      <h1 {...fadeInHi}>Hi</h1>
+      <p {...fadeInP}>lorem ipsum lol</p>
+    </div>
+  );
+};
+export default App;
+```

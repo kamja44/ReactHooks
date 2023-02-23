@@ -9,6 +9,8 @@ import UseClick from "./useClick";
 import UseHover from "./useHover";
 import UseConfirm from "./useConfirm";
 import UsePreventLeave from "./usePreventLeave";
+import UseBeforeLeave from "./useBeforeLeave";
+import UseFadeIn from "./useFadeIn";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(<UsePreventLeave />);
+root.render(<UseFadeIn />);

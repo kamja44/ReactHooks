@@ -436,3 +436,45 @@ const App = () => {
 };
 export default App;
 ```
+
+# useNetwork
+
+- navigator가 online or offline이 되는걸 막아준다.
+  - navigator에는 사용자의 상태와 신용정보를 가지고 있고, 스크립트로 해당 정보를 질의할 때 애플리케이션을 특정 활동에 등록할 때 사용한다.
+
+```js
+import React, { useState, useEffect } from "react";
+
+const useNetwork = (onChange) => {
+  const [status, setStatue] = useState(navigator.onLine);
+  console.log(navigator.onLine);
+  const handleChagne = () => {
+    if (typeof onChange === "function") {
+      onChange(navigator.onLine);
+    }
+    setStatue(navigator.onLine);
+  };
+  useEffect(() => {
+    window.addEventListener("online", handleChagne);
+    window.addEventListener("offline", handleChagne);
+    return () => {
+      window.removeEventListener("online", handleChagne);
+      window.removeEventListener("offline", handleChagne);
+    };
+  }, []);
+  return status;
+};
+
+const App = () => {
+  const handleNetworkChange = (online) => {
+    console.log(online ? "weJust went online" : "We are offline");
+  };
+  const onLine = useNetwork(handleNetworkChange);
+  return (
+    <div>
+      <div>{onLine ? "Online" : "Offline"}</div>
+    </div>
+  );
+};
+export default App;
+```

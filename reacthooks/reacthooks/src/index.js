@@ -11,6 +11,7 @@ import UseConfirm from "./useConfirm";
 import UsePreventLeave from "./usePreventLeave";
 import UseBeforeLeave from "./useBeforeLeave";
 import UseFadeIn from "./useFadeIn";
+import UseNetwork from "./useNetwork";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(<UseFadeIn />);
+root.render(<UseNetwork />);

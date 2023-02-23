@@ -13,6 +13,7 @@ import UseBeforeLeave from "./useBeforeLeave";
 import UseFadeIn from "./useFadeIn";
 import UseNetwork from "./useNetwork";
 import UseScroll from "./useScroll";
+import UseFullScreen from "./useFullScreen";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(<UseScroll />);
+root.render(<UseFullScreen />);

@@ -12,6 +12,7 @@ import UsePreventLeave from "./usePreventLeave";
 import UseBeforeLeave from "./useBeforeLeave";
 import UseFadeIn from "./useFadeIn";
 import UseNetwork from "./useNetwork";
+import UseScroll from "./useScroll";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(<UseNetwork />);
+root.render(<UseScroll />);

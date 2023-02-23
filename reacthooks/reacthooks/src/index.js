@@ -1,5 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+/*
 import UseInput from "./useInputHook";
 import UseTabHooks from "./useTabHooks";
 import UseEffectHooks from "./useEffect";
@@ -14,6 +15,8 @@ import UseFadeIn from "./useFadeIn";
 import UseNetwork from "./useNetwork";
 import UseScroll from "./useScroll";
 import UseFullScreen from "./useFullScreen";
+*/
+import UseNotification from "./useNotification";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(<UseFullScreen />);
+root.render(<UseNotification />);

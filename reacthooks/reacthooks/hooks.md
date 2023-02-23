@@ -596,3 +596,72 @@ const App = () => {
 };
 export default App;
 ```
+
+# useAxios
+
+- npm install axios
+- axios는 약간의 customization과 configuration을 허용한다.
+  -ex) default URL 설정, 자동으로 헤더 설정하는것들을 허용한다.
+  - axios가 약간의 customization과 configuration을 허용하기에 axiosInstance를 얻을 수 있다. -만일 얻지 못한다면 import한 axios를 전달한다.(defaultAxios)
+- 즉, axios는 개발자가 instance를 만드는걸 허용한다.
+  - instance를 만드는걸 허용하면 개발자는 configuration을 할 수 있다.
+    - configuration을 할 때 데이터를 같이 보낼 수 있다.
+  - 사용자는 instance와 함께 request를 만들 수 있다.
+    - 사용자가 instance를 갖지 않을 때 defaultAxios를 기본값으로 전달한다.
+- Axios의 첫 번째 argument(options는 첫 번쨰로 url을 받는다.)
+
+```js
+import React, { useState, useEffect, useRef } from "react";
+import defaultAxios from "axios";
+
+const useAxios = (options, axiosInstance = defaultAxios) => {
+  const [state, setState] = useState({
+    loading: true,
+    error: null,
+    data: null,
+  });
+  const [trigger, setTrigger] = useState(0);
+  const refetch = () => {
+    setState({
+      ...state,
+      loading: true,
+    });
+    setTrigger(new Date());
+  };
+  useEffect(() => {
+    if (!options.url) {
+      return;
+    }
+    axiosInstance(options)
+      .then((data) => {
+        setState({
+          ...state,
+          loading: false,
+          data,
+        });
+      })
+      .catch((error) => {
+        setState({
+          ...state,
+          loading: false,
+          error,
+        });
+      });
+  }, [trigger]);
+  return { ...state, refetch };
+};
+
+const App = () => {
+  const { loading, data, refetch } = useAxios({
+    url: "https://yts.mx/api/v2/list_movies.json",
+  });
+  return (
+    <div>
+      <h1>{data && data.status}</h1>
+      <h2>{loading && "Loading"}</h2>
+      <button onClick={refetch}>refetch</button>
+    </div>
+  );
+};
+export default App;
+```
